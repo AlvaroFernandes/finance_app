@@ -1,7 +1,7 @@
+import { SignUpForm } from "@/components/SignUpForm";
 import { Landmark } from "lucide-react";
-import { SignInForm } from "@/components/SignInForm";
 
-interface SignInPageProps {
+interface SignUpPageProps {
   logo: {
     href: string;
     icon: React.ReactNode;
@@ -12,16 +12,16 @@ interface SignInPageProps {
   loginUrl?: string;
 }
 
-const SignInPage = ({
+const SignUpPage = ({
   logo = {
     href: "/",
     icon: <Landmark />,
   },
   heading = "Fincance APP",
-  subheading = "Sign in to your account.",
-  loginText = "Don't have an account?",
-  loginUrl = "/signup",
-}: SignInPageProps) => {
+  subheading = "Sign up to your account.",
+  loginText = "Already have an account?",
+  loginUrl = "/signin",
+}: SignUpPageProps) => {
   return (
     <section className="py-32">
       <div className="container">
@@ -35,12 +35,12 @@ const SignInPage = ({
               <p className="text-muted-foreground">{subheading}</p>
             </div>
             <div>
-              <SignInForm />
+              <SignUpForm />
             </div>
             <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
               <p>{loginText}</p>
               <a href={loginUrl} className="font-medium text-primary">
-                Sign up
+                Sign in
               </a>
             </div>
           </div>
@@ -50,4 +50,4 @@ const SignInPage = ({
   );
 };
 
-export default SignInPage;
+export default SignUpPage;

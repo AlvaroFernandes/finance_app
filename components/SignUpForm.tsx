@@ -7,13 +7,13 @@ import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 
-interface SignInFormValues {
+interface SignUpFormValues {
   email: string;
   password: string;
 }
 
-export const SignInForm: React.FC = () => {
-  const formik = useFormik<SignInFormValues>({
+export const SignUpForm: React.FC = () => {
+  const formik = useFormik<SignUpFormValues>({
     initialValues: {
       email: "",
       password: "",
@@ -27,8 +27,8 @@ export const SignInForm: React.FC = () => {
         .required("Password is required"),
     }),
     onSubmit: (
-      values: SignInFormValues,
-      { setSubmitting }: FormikHelpers<SignInFormValues>
+      values: SignUpFormValues,
+      { setSubmitting }: FormikHelpers<SignUpFormValues>
     ) => {
       console.log("Submitted values:", values);
       setSubmitting(false);
