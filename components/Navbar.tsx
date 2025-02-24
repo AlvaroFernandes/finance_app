@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { Landmark, MenuIcon } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { ThemeToggle } from "./ThemeToggle";
 
 export const Navbar = () => {
   return (
@@ -85,6 +86,7 @@ export const Navbar = () => {
           Signup
         </Link>
       </nav>
+      <ThemeToggle />
     </header>
   );
 };
