@@ -13,7 +13,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export const Navbar = () => {
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <header className="flex justify-between h-20 w-full shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -38,7 +38,7 @@ export const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/auth/signin"
+              href="/signin"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >

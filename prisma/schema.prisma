@@ -13,12 +13,11 @@ enum role {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  role          role      @default(USER)
-  accounts      Account[]
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  email    String?   @unique
+  role     role      @default(USER)
+  accounts Account[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
