@@ -4,6 +4,8 @@ import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { FcGoogle } from "react-icons/fc";
+import { IoLogoApple } from "react-icons/io5";
 
 interface SigninFormValues {
   email: string;
@@ -78,6 +80,32 @@ export const SigninForm: React.FC = () => {
           Sign In
         </Button>
       </form>
+      {/* Divider */}
+      <div className="flex items-center my-6">
+        <hr className="flex-grow border-t border-gray-300" />
+        <span className="px-4 text-gray-500">or</span>
+        <hr className="flex-grow border-t border-gray-300" />
+      </div>
+
+      {/* OAuth Sign-In Buttons */}
+      <div className="flex flex-col space-y-4">
+        <Button
+          variant="outline"
+          onClick={() => console.log("google")}
+          className="w-full flex items-center justify-center space-x-2"
+        >
+          <FcGoogle className="w-5 h-5" />
+          <span>Sign in with Google</span>
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => console.log("apple")}
+          className="w-full flex items-center justify-center space-x-2"
+        >
+          <IoLogoApple className="w-5 h-5" />
+          <span>Sign in with Apple</span>
+        </Button>
+      </div>
     </div>
   );
 };
