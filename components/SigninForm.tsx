@@ -1,12 +1,13 @@
 "use client";
 
 import { FormikHelpers, useFormik } from "formik";
-import * as Yup from "yup";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
+import { SignInSchema } from "@/schemas";
+import { SignInAction } from "@/actions/SignIn";
 
 interface SignInFormValues {
   email: string;
@@ -19,34 +20,13 @@ export const SignInForm: React.FC = () => {
       email: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-    }),
+    validationSchema: SignInSchema,
     onSubmit: async (
       values: SignInFormValues,
       { setSubmitting }: FormikHelpers<SignInFormValues>
     ) => {
       console.log("Submitted values:", values);
-      try {
-        const res = await signIn("credentials", {
-          redirect: false,
-          email: values.email,
-          password: values.password,
-        });
-        if (res?.error) {
-          console.error("Sign in error", res.error);
-        } else {
-          console.log("User signed in successfully");
-        }
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
-
+      SignInAction(values);
       setSubmitting(false);
       // TODO: Handle the sign-in logic (e.g., call an API endpoint)
     },

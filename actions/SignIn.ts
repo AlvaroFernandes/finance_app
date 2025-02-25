@@ -13,16 +13,20 @@ interface SignInDataValues {
 export const SignInAction = async (data: SignInDataValues)  => {
     console.log(data);
 
-     const {email, password} = data;
+    const {email, password} = data;
 
-        const userExists = prisma.user.findFirst({
-            where:{
-                email: email,
-            }
-        })
+    const userExists = await prisma.user.findFirst({
+        where:{
+            email: email,
+        }
+    })
 
-        if(!userExists || !userExists.password || !userExists.email){ return "User not found"};
+    if(!userExists || !userExists.password || !userExists.email){ return "User not found"};
 
+
+    const passwordMatch = await bcrypt.compare(password, userExists.password);
+
+    if(!passwordMatch) return "Invalid Credentials."
 
     try {
        await signIn("credentials", {
