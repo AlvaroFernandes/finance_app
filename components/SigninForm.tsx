@@ -76,7 +76,11 @@ export const SignInForm: React.FC = () => {
             </p>
           )}
         </div>
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!formik.isValid || formik.isSubmitting}
+        >
           Sign In
         </Button>
       </form>

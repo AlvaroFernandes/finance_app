@@ -8,23 +8,31 @@ import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 
 interface SignUpFormValues {
+  name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 export const SignUpForm: React.FC = () => {
   const formik = useFormik<SignUpFormValues>({
     initialValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: Yup.object({
+      name: Yup.string().required("Name is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Confirm Password is required"),
     }),
     onSubmit: (
       values: SignUpFormValues,
@@ -38,6 +46,24 @@ export const SignUpForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={formik.handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium">
+            Name
+          </label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Your name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            className="mt-1 block w-full"
+          />
+          {formik.touched.name && formik.errors.name && (
+            <p className="mt-1 text-sm text-red-600">{formik.errors.name}</p>
+          )}
+        </div>
         <div>
           <label htmlFor="email" className="block text-sm font-medium">
             Email
@@ -76,7 +102,34 @@ export const SignUpForm: React.FC = () => {
             </p>
           )}
         </div>
-        <Button type="submit" className="w-full">
+        <div>
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium"
+          >
+            Confirm Password
+          </label>
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm your password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.confirmPassword}
+            className="mt-1 block w-full"
+          />
+          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+            <p className="mt-1 text-sm text-red-600">
+              {formik.errors.confirmPassword}
+            </p>
+          )}
+        </div>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!formik.isValid || formik.isSubmitting}
+        >
           Sign In
         </Button>
       </form>
