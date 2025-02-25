@@ -1,11 +1,13 @@
 "use client";
 
 import { FormikHelpers, useFormik } from "formik";
-import * as Yup from "yup";
+
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
+import { SignUpAction } from "@/actions/SignUp";
+import { SignUpSchema } from "@/schemas";
 
 interface SignUpFormValues {
   name: string;
@@ -22,23 +24,13 @@ export const SignUpForm: React.FC = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Confirm Password is required"),
-    }),
+    validationSchema: SignUpSchema,
     onSubmit: (
       values: SignUpFormValues,
       { setSubmitting }: FormikHelpers<SignUpFormValues>
     ) => {
       console.log("Submitted values:", values);
+      SignUpAction(values);
       setSubmitting(false);
       // TODO: Handle the sign-in logic (e.g., call an API endpoint)
     },

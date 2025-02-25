@@ -45,7 +45,7 @@ export const Navbar = () => {
               Signin
             </Link>
             <Link
-              href="/auth/signup"
+              href="/signup"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
