@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
+import { signIn } from "next-auth/react";
 
 interface SignInFormValues {
   email: string;
@@ -26,11 +27,26 @@ export const SignInForm: React.FC = () => {
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
-    onSubmit: (
+    onSubmit: async (
       values: SignInFormValues,
       { setSubmitting }: FormikHelpers<SignInFormValues>
     ) => {
       console.log("Submitted values:", values);
+      try {
+        const res = await signIn("credentials", {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+        });
+        if (res?.error) {
+          console.error("Sign in error", res.error);
+        } else {
+          console.log("User signed in successfully");
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+
       setSubmitting(false);
       // TODO: Handle the sign-in logic (e.g., call an API endpoint)
     },
@@ -95,7 +111,7 @@ export const SignInForm: React.FC = () => {
       <div className="flex flex-col space-y-4">
         <Button
           variant="outline"
-          onClick={() => console.log("google")}
+          onClick={() => signIn("google")}
           className="w-full flex items-center justify-center space-x-2"
         >
           <FcGoogle className="w-5 h-5" />
@@ -103,7 +119,7 @@ export const SignInForm: React.FC = () => {
         </Button>
         <Button
           variant="outline"
-          onClick={() => console.log("apple")}
+          onClick={() => signIn("apple")}
           className="w-full flex items-center justify-center space-x-2"
         >
           <IoLogoApple className="w-5 h-5" />
