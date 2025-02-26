@@ -2,12 +2,13 @@
 
 import { FormikHelpers, useFormik } from "formik";
 
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { SignUpAction } from "@/actions/SignUp";
 import { SignUpSchema } from "@/schemas";
+import { signIn } from "@/auth";
 
 interface SignUpFormValues {
   name: string;
@@ -136,7 +137,7 @@ export const SignUpForm: React.FC = () => {
       <div className="flex flex-col space-y-4">
         <Button
           variant="outline"
-          onClick={() => console.log("google")}
+          onClick={() => signIn("google")}
           className="w-full flex items-center justify-center space-x-2"
         >
           <FcGoogle className="w-5 h-5" />

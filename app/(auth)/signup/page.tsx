@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/SignUpForm";
+import { SignUpForm } from "@/components/auth/SignUpForm";
 import { Landmark } from "lucide-react";
 
 interface SignUpPageProps {

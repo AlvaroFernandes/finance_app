@@ -1,8 +1,8 @@
 "use client";
 
 import { FormikHelpers, useFormik } from "formik";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";

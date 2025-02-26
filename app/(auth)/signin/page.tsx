@@ -1,5 +1,5 @@
 import { Landmark } from "lucide-react";
-import { SignInForm } from "@/components/SignInForm";
+import { SignInForm } from "@/components/auth/SignInForm";
 
 interface SignInPageProps {
   logo: {

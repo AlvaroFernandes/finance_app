@@ -11,7 +11,6 @@ interface SignInDataValues {
 }
 
 export const SignInAction = async (data: SignInDataValues)  => {
-    console.log(data);
 
     const {email, password} = data;
 

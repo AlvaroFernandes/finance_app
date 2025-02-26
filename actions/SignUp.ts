@@ -12,7 +12,6 @@ interface SignUpDataValues {
 }
 
 export const SignUpAction = async (data: SignUpDataValues) =>{
-    console.log(data)
     try{
     const {name, email, password} = data;
 
