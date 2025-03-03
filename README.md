@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance App
 
-## Getting Started
+Finance App is a web application built with **Next.js**, **TypeScript**, and **Prisma** for managing clients, jobs, invoices, and accounts efficiently.
 
-First, run the development server:
+## 🚀 Features
+
+- User authentication with **NextAuth.js** (Google, Apple, Credentials)
+- CRUD operations for **Clients, Jobs, Invoices, and Accounts**
+- Secure authentication with middleware protection
+- Optimized performance with Prisma ORM and API caching
+- Styled with **Tailwind CSS** for modern UI
+
+## 📦 Tech Stack
+
+- **Frontend:** Next.js, TypeScript, Tailwind CSS
+- **Backend:** Prisma ORM, Next.js API Routes
+- **Authentication:** NextAuth.js (Google, Apple, Credentials)
+- **Database:** PostgreSQL (or other Prisma-supported databases)
+
+## 📜 Installation
+
+1. **Clone the Repository**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/AlvaroFernandes/finance_app.git
+cd finance_app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install Dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install  # or yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Set Up Environment Variables**
+   Create a `.env.local` file and configure your database and authentication providers:
 
-## Learn More
+```env
+DATABASE_URL=your_database_connection_string
+NEXTAUTH_SECRET=your_nextauth_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Run the Development Server**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev  # or yarn dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Deploy on Vercel
+## 🔑 Authentication
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project uses **NextAuth.js** for authentication. It supports Google and Apple login, as well as email/password authentication.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To **logout**, use the `signOut()` function:
+
+```tsx
+import { signOut } from "next-auth/react";
+<button onClick={() => signOut({ callbackUrl: "/signin" })}>Logout</button>;
+```
+
+## 📌 API Endpoints
+
+- `GET /api/clients` - Fetch all clients
+- `POST /api/clients` - Add a new client
+- `DELETE /api/clients` - Remove a client
+- Similar endpoints exist for **Jobs, Invoices, and Accounts**
+
+## 🎨 CRUD Pages
+
+| Feature             | Path        |
+| ------------------- | ----------- |
+| Clients Management  | `/clients`  |
+| Jobs Management     | `/jobs`     |
+| Invoices Management | `/invoices` |
+| Accounts Management | `/accounts` |
+
+## 🛠 Future Improvements
+
+- Implement **server-side pagination** for large datasets
+- Add **role-based authentication**
+- Enhance **UI/UX with a dashboard**
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+### 💡 Need Help?
+
+If you encounter any issues, feel free to open an issue in the repository!

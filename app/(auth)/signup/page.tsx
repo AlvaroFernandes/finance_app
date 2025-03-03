@@ -1,5 +1,6 @@
 import { SignUpForm } from "@/components/auth/SignUpForm";
 import { Landmark } from "lucide-react";
+import Link from "next/link";
 
 interface SignUpPageProps {
   logo: {
@@ -28,9 +29,9 @@ const SignUpPage = ({
         <div className="flex flex-col gap-4">
           <div className="mx-auto w-full max-w-sm rounded-md p-6 shadow">
             <div className="mb-6 flex flex-col items-center">
-              <a href={logo.href} className="m-7 h-10 w-auto">
+              <Link href={logo.href} className="m-7 h-10 w-auto">
                 {logo.icon}
-              </a>
+              </Link>
               <p className="mb-2 text-2xl font-bold">{heading}</p>
               <p className="text-muted-foreground">{subheading}</p>
             </div>
@@ -39,9 +40,9 @@ const SignUpPage = ({
             </div>
             <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
               <p>{loginText}</p>
-              <a href={loginUrl} className="font-medium text-primary">
+              <Link href={loginUrl} className="font-medium text-primary">
                 Sign in
-              </a>
+              </Link>
             </div>
           </div>
         </div>

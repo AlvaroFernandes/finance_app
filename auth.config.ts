@@ -41,7 +41,7 @@ export default {
           }
 
           // Await bcrypt comparison
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+          const passwordMatch = await bcrypt.compare(String(credentials.password), String(user.password));
           if (!passwordMatch) {
             throw new Error("Invalid credentials");
           }

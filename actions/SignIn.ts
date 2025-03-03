@@ -1,6 +1,6 @@
 "use server";
 
-import {prisma} from "@/prisma/prisma"
+import { prisma } from "@/prisma/prisma";
 import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
@@ -10,41 +10,45 @@ interface SignInDataValues {
     password: string;
 }
 
-export const SignInAction = async (data: SignInDataValues)  => {
-
-    const {email, password} = data;
-
-    const userExists = await prisma.user.findFirst({
-        where:{
-            email: email,
-        }
-    })
-
-    if(!userExists || !userExists.password || !userExists.email){ return "User not found"};
-
-
-    const passwordMatch = await bcrypt.compare(password, userExists.password);
-
-    if(!passwordMatch) return "Invalid Credentials."
+export const SignInAction = async (data: SignInDataValues) => {
+    const { email, password } = data;
 
     try {
-       await signIn("credentials", {
-        email: userExists.email,
-        password: password,
-        redirectTo: "/dashboard"
-       })
+        const user = await prisma.user.findFirst({
+            where: { email },
+        });
 
-    } catch (error) {
-        if(error instanceof AuthError){
-            switch(error.type){
-                case "CredentialsSignin":
-                    return { error: "Invalid credentials"}
-                default:
-                    return {error: 'Please confirm your email address'}
-                
-            }
+        if (!user || !user.password) {
+            console.error("User not found or password is missing");
+            return { error: "User not found" };
         }
-    throw error
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            console.error("Invalid credentials");
+            return { error: "Invalid credentials" };
+        }
+
+        await signIn("credentials", {
+            email: user.email,
+            password,
+            redirectTo: "/dashboard",
+        });
+
+        return { success: "User logged in successfully" };
+    } catch (error) {
+        if (error instanceof AuthError) {
+            console.error("Authentication error:", error);
+            switch (error.type) {
+                case "CredentialsSignin":
+                    return { error: "Invalid credentials" };
+                default:
+                    return { error: "Please confirm your email address" };
+            }
+        } else {
+            console.error("Unexpected error during sign in:", error);
+            throw new Error("An unexpected error occurred during sign in");
+        }
     }
-    return {success: "user login successfully"}
-}
+};
